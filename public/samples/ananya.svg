@@ -1,0 +1,10 @@
+<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="640" rx="120" fill="#E8E1F1"/>
+  <circle cx="320" cy="250" r="116" fill="#9B6B57"/>
+  <path d="M155 562c28-107 94-162 165-162s137 55 165 162H155z" fill="#3F4D7A"/>
+  <circle cx="278" cy="258" r="12" fill="#24201C"/>
+  <circle cx="363" cy="258" r="12" fill="#24201C"/>
+  <path d="M280 318c25 18 55 18 80 0" stroke="#24201C" stroke-width="12" stroke-linecap="round"/>
+  <path d="M222 228c17-80 65-121 121-112 50 8 81 49 91 112-75-20-143-20-212 0z" fill="#25211D"/>
+  <text x="320" y="604" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#24201C">Ananya</text>
+</svg>

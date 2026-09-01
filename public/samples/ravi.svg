@@ -1,0 +1,11 @@
+<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="640" rx="120" fill="#E7EDF4"/>
+  <circle cx="320" cy="250" r="114" fill="#9A654E"/>
+  <path d="M154 562c28-105 94-160 166-160s138 55 166 160H154z" fill="#6F8B78"/>
+  <circle cx="279" cy="258" r="12" fill="#24201C"/>
+  <circle cx="361" cy="258" r="12" fill="#24201C"/>
+  <path d="M282 319c24 18 52 18 76 0" stroke="#24201C" stroke-width="12" stroke-linecap="round"/>
+  <path d="M220 224c16-70 57-107 112-107 51 0 86 35 96 107-72-18-139-18-208 0z" fill="#24201C"/>
+  <path d="M265 304h110" stroke="#24201C" stroke-width="18" stroke-linecap="round"/>
+  <text x="320" y="604" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#24201C">Ravi</text>
+</svg>

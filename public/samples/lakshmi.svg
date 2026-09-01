@@ -1,0 +1,10 @@
+<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="640" rx="120" fill="#F3E4D2"/>
+  <circle cx="320" cy="250" r="118" fill="#A86550"/>
+  <path d="M160 560c25-108 92-163 160-163s135 55 160 163H160z" fill="#6F8B78"/>
+  <circle cx="278" cy="255" r="13" fill="#2B2621"/>
+  <circle cx="362" cy="255" r="13" fill="#2B2621"/>
+  <path d="M279 320c26 22 56 22 82 0" stroke="#2B2621" stroke-width="13" stroke-linecap="round"/>
+  <path d="M205 254c8-91 55-145 121-145 70 0 117 49 129 145-70-31-149-31-250 0z" fill="#2B2621"/>
+  <text x="320" y="604" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#2B2621">Lakshmi</text>
+</svg>

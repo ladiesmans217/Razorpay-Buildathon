@@ -1,0 +1,52 @@
+[
+  {
+    "id": "carelearn_wandering_001",
+    "title": "Wandering safety for the care circle",
+    "query": "calm response when an elder seems lost near home",
+    "role": ["caregiver", "neighbour", "rwa", "asha"],
+    "use_case": "wandering",
+    "language": ["English", "Hindi", "Kannada"],
+    "summary": "Gemini CareLearn pack: safe, calm community response when someone may be lost.",
+    "source_type": "carelearn"
+  },
+  {
+    "id": "carelearn_communication_001",
+    "title": "Calm communication with elders",
+    "query": "speak slowly one choice at a time dementia care",
+    "role": ["caregiver", "neighbour", "volunteer", "rwa"],
+    "use_case": "communication",
+    "language": ["English", "Hindi", "Kannada"],
+    "summary": "Speak slowly, keep choices simple, avoid arguing, and preserve dignity.",
+    "source_type": "carelearn"
+  },
+  {
+    "id": "carelearn_medication_001",
+    "title": "Medication routine support",
+    "query": "older adult medication adherence caregiver India",
+    "role": ["caregiver", "pharmacy", "asha"],
+    "use_case": "medication",
+    "language": ["English", "Hindi"],
+    "summary": "Refill reminders, safe escalation, and caregiver confirmation — no dosing advice.",
+    "source_type": "carelearn"
+  },
+  {
+    "id": "carelearn_stress_001",
+    "title": "Caregiver stress and rest",
+    "query": "caregiver stress support asking for help",
+    "role": ["caregiver", "asha", "doctor"],
+    "use_case": "caregiver_stress",
+    "language": ["English", "Hindi", "Kannada"],
+    "summary": "Burnout signals, rest planning, and how the care circle can share load.",
+    "source_type": "carelearn"
+  },
+  {
+    "id": "carelearn_community_001",
+    "title": "RWA and volunteer emergency response",
+    "query": "apartment community elderly emergency response India",
+    "role": ["asha", "rwa", "volunteer", "neighbour"],
+    "use_case": "emergency",
+    "language": ["English", "Hindi", "Kannada"],
+    "summary": "Local awareness pack for RWA, ASHA workers, and student volunteers.",
+    "source_type": "carelearn"
+  }
+]

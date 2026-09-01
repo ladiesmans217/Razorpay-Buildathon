@@ -1,0 +1,10 @@
+<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="640" rx="120" fill="#F5E9D5"/>
+  <circle cx="320" cy="250" r="110" fill="#A87561"/>
+  <path d="M150 562c30-105 98-160 170-160s140 55 170 160H150z" fill="#7D6AA8"/>
+  <circle cx="280" cy="258" r="12" fill="#24201C"/>
+  <circle cx="360" cy="258" r="12" fill="#24201C"/>
+  <path d="M282 319c24 16 52 16 76 0" stroke="#24201C" stroke-width="12" stroke-linecap="round"/>
+  <path d="M206 246c15-84 60-132 116-132 58 0 101 48 112 132-75-28-149-28-228 0z" fill="#3F4D7A"/>
+  <text x="320" y="604" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#24201C">RWA</text>
+</svg>
