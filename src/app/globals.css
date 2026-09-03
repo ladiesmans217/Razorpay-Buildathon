@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+:root {
+  --porcelain: #f7f3eb;
+  --paper: #fffaf1;
+  --ink: #24201c;
+  --muted: #746b61;
+  --sage: #6f8b78;
+  --clay: #bc6f55;
+  --indigo: #3f4d7a;
+  --violet: #7d6aa8;
+  --honey: #e9ba66;
+  --line: rgba(36, 32, 28, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 7%, rgba(233, 186, 102, 0.24), transparent 28rem),
+    radial-gradient(circle at 86% 12%, rgba(111, 139, 120, 0.22), transparent 30rem),
+    linear-gradient(135deg, #f7f3eb 0%, #f1eadf 46%, #eee7dc 100%);
+  font-family:
+    "Inter",
+    "Aptos",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Faster, more reliable taps on Android WebView */
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(188, 111, 85, 0.25);
+}
+
+.font-display {
+  font-family:
+    "Fraunces",
+    "Canela",
+    "Iowan Old Style",
+    Georgia,
+    serif;
+  letter-spacing: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.soft-panel {
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  background: rgba(255, 250, 241, 0.74);
+  box-shadow: 0 24px 80px rgba(54, 43, 31, 0.11);
+  backdrop-filter: blur(22px);
+}
+
+.ink-panel {
+  background: #25211d;
+  color: #fff8eb;
+  box-shadow: 0 28px 90px rgba(36, 32, 28, 0.24);
+}
+
+.care-grid {
+  background-image:
+    linear-gradient(rgba(36, 32, 28, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(36, 32, 28, 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.trust-ring {
+  position: relative;
+}
+
+.trust-ring::before {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  content: "";
+  background: linear-gradient(135deg, rgba(111, 139, 120, 0.8), rgba(188, 111, 85, 0.6));
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Leaflet map markers (divIcon) — strip default leaflet icon chrome */
+.caregrid-map-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-container {
+  font: inherit;
+  background: #ede4d6;
+}
+
+.scrollbar-soft::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollbar-soft::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: rgba(36, 32, 28, 0.18);
+  background-clip: padding-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
