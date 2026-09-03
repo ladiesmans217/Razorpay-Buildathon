@@ -1,0 +1,4 @@
+android.useAndroidX=true
+android.suppressUnsupportedCompileSdk=36
+caregridApiBase=https://YOUR-HTTPS-TUNNEL.example.com
+caregridWebUrl=https://YOUR-HTTPS-TUNNEL.example.com/community-app
