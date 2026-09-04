@@ -15,7 +15,6 @@ AI-assisted dementia care for Indian families — consent-aware memory, wanderin
 | **Track** | **Track 05 : Open Track** |
 | **Solo Builder** | **Manjunath Patil** (`manjunathpatil3155@gmail.com`) |
 | **Project** | **RememberMe CareGrid** |
-| **Repository** | [github.com/ladiesmans217/Razorpay-Buildathon](https://github.com/ladiesmans217/Razorpay-Buildathon) |
 
 ---
 
