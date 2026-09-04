@@ -12,25 +12,99 @@ AI-assisted dementia care for Indian families — consent-aware memory, wanderin
 ## Table of contents
 
 1. [Pitch](#pitch)
-2. [Problem](#problem)
-3. [Solution — three rings of care](#solution--three-rings-of-care)
-4. [What we built](#what-we-built)
-5. [System architecture](#system-architecture)
-6. [Key product flows](#key-product-flows)
-7. [Google AI stack](#google-ai-stack)
-8. [Privacy & safety](#privacy--safety)
-9. [Tech stack](#tech-stack)
-10. [Repository layout](#repository-layout)
-11. [Quick start](#quick-start)
-12. [Environment variables](#environment-variables)
-13. [Demo mode vs live services](#demo-mode-vs-live-services)
-14. [Wear OS setup](#wear-os-setup)
-15. [Phone WebView setup](#phone-webview-setup)
-16. [Main routes](#main-routes)
-17. [API surface (watch & care)](#api-surface-watch--care)
-18. [Live product demo walkthrough](#live-product-demo-walkthrough)
-19. [Local Gemma (optional)](#local-gemma-optional)
-20. [Builder & Track](#builder--track)
+2. [Builder & Track Info](#builder--track-info)
+3. [What Broke, and How I Got Out](#what-broke-and-how-i-got-out)
+4. [Judge & Evaluator Quick Start (Zero-Setup)](#judge--evaluator-quick-start-zero-setup)
+5. [Problem](#problem)
+6. [Solution — three rings of care](#solution--three-rings-of-care)
+7. [What was built](#what-was-built)
+8. [System architecture](#system-architecture)
+9. [Key product flows](#key-product-flows)
+10. [AI stack](#ai-stack)
+11. [Privacy & safety](#privacy--safety)
+12. [Tech stack](#tech-stack)
+13. [Repository layout](#repository-layout)
+14. [Quick start & scripts](#quick-start--scripts)
+15. [Environment variables (optional)](#environment-variables-optional)
+16. [Demo mode vs live services](#demo-mode-vs-live-services)
+17. [Wear OS setup](#wear-os-setup)
+18. [Phone WebView setup](#phone-webview-setup)
+19. [Main routes](#main-routes)
+20. [API surface (watch & care)](#api-surface-watch--care)
+21. [Live product demo walkthrough](#live-product-demo-walkthrough)
+22. [Local Gemma (optional)](#local-gemma-optional)
+
+---
+
+## Builder & Track Info
+
+| Property | Details |
+|---|---|
+| **Hackathon** | **Razorpay Buildathon 2026** |
+| **Track** | **Track 05 : Open Track** |
+| **Solo Builder** | **Manjunath Patil** (`manjunathpatil3155@gmail.com`) |
+| **Project** | **RememberMe CareGrid** |
+| **Repository** | [github.com/ladiesmans217/Razorpay-Buildathon](https://github.com/ladiesmans217/Razorpay-Buildathon) |
+
+---
+
+## What Broke, and How I Got Out
+
+*(An honest engineering retrospective on the most challenging hurdles faced during the build and how they were resolved).*
+
+### 1. Hardware-in-the-Loop Network Fragility & Watch Latency
+* **What Broke:** Testing a native Kotlin Wear OS app (Samsung Galaxy Watch 4) streaming real-time GPS pings, accelerometer movement, and voice recordings over local Wi-Fi tunnels was brittle. Flaky mobile hotspots caused the watch client to hang or drop packets when attempting live server synchronizations, completely halting frontend verification.
+* **How I Got Out:** 
+  1. Built an offline-first contract with decoupled background worker synchronization and deterministic JSON fallbacks.
+  2. Implemented a full **browser-based Wear OS mirror at `/watch`**. The web companion exercises the exact same REST API endpoints (`/api/watch/location`, `/api/watch/checkin`, `/api/watch/alert`, `/api/watch/talk`) using identical schemas, allowing seamless development and evaluation even when physical watch hardware or tunnels are unavailable.
+
+### 2. Client-Side Face Embedding Bottlenecks on Low-Power Devices
+* **What Broke:** Initial attempts to run `@vladmandic/human` face detection and 128-dimensional embedding extraction entirely inside an Android WebView shell on older phones caused thermal throttling, severe camera frame drops (dropping below 3 FPS), and intermittent memory crashes.
+* **How I Got Out:** 
+  1. Architected a hybrid offloading model: the phone WebView strictly handles lightweight canvas frame capture and user consent verification.
+  2. The raw frame is shipped to `/api/recognize-face`, where feature extraction and vector cosine similarity comparison against enrolled trusted contacts occur server-side. This keeps the phone camera running smoothly at high frame rates while safeguarding patient battery life.
+
+### 3. Graceful Degradation: Zero-Key Demo Resilience
+* **What Broke:** Hard dependencies on external cloud APIs (Gemini multimodal vision, Twilio SMS & voice calls, Firebase Firestore) meant that an invalid API key, credit exhaustion, or missing environment variable would throw uncaught exceptions and break the entire care timeline during evaluation.
+* **How I Got Out:** 
+  1. Engineered a multi-tier fallback architecture: every single AI and hardware endpoint has an inline mock generator with realistic clinical and care responses (e.g. `src/lib/ai/mocks.ts`).
+  2. If Twilio credentials are not supplied, the geofencing engine logs a simulated emergency dispatch (`[CareGrid SOS] Twilio env vars missing, SOS simulated`) and gracefully renders the caregiver notification in the UI without crashing.
+  3. The result is a **100% zero-configuration evaluation experience** for judges.
+
+---
+
+## Judge & Evaluator Quick Start (Zero-Setup)
+
+> [!TIP]
+> **No API keys or external services are needed!**  
+> The project includes pre-seeded clinical and sensor data, a local care store, and fallback AI providers so you can experience and test every feature immediately.
+
+### 1. Clone & Run Locally
+```bash
+# 1. Clone the repository
+git clone https://github.com/ladiesmans217/Razorpay-Buildathon.git
+cd Razorpay-Buildathon
+
+# 2. Install dependencies (Node 18+ or 20+ recommended)
+npm install
+
+# 3. Start the Next.js development server
+npm run dev
+```
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
+
+### 2. Recommended 3-Minute Evaluation Tour
+
+| Order | Page | What to Test / Verify |
+| :---: | :--- | :--- |
+| **1** | [`/`](http://localhost:3000/) | **Home & Architecture**: Core mission, three rings of care, and architectural breakdown. |
+| **2** | [`/watch`](http://localhost:3000/watch) | **Galaxy Watch 4 Companion**: Interactive watch shell. Click **"Speak cue"**, tap **"I'm okay"** or **"Notify caregiver"**, and view the dynamic QR rescue link. |
+| **3** | [`/safe-path`](http://localhost:3000/safe-path) | **SafePath Geofencing**: Live Leaflet map displaying safe zones (home, temple) vs. risky zones (busy main road), with active patient coordinates. |
+| **4** | [`/caregiver`](http://localhost:3000/caregiver) | **Caregiver Dashboard**: Real-time event stream, vitals (heart rate, step counts, sleep quality), and active alerts. |
+| **5** | [`/doctor-report`](http://localhost:3000/doctor-report) | **Doctor Brief**: Clinical summary showing weekly behavioral patterns, wandering incidents, and clinician talking points. |
+| **6** | [`/rescue/patient_rajamma`](http://localhost:3000/rescue/patient_rajamma) | **Bystander Rescue Page**: The mobile-responsive recovery screen a passerby sees when scanning the patient's watch QR code. |
+
+---
 
 ---
 
