@@ -14,7 +14,7 @@ AI-assisted dementia care for Indian families — consent-aware memory, wanderin
 1. [Pitch](#pitch)
 2. [Builder & Track Info](#builder--track-info)
 3. [What Broke, and How I Got Out](#what-broke-and-how-i-got-out)
-4. [Judge & Evaluator Quick Start (Zero-Setup)](#judge--evaluator-quick-start-zero-setup)
+4. [Evaluation Modes (Zero-Setup vs Full Hardware)](#evaluation-modes-zero-setup-vs-full-fledged-hardware)
 5. [Problem](#problem)
 6. [Solution — three rings of care](#solution--three-rings-of-care)
 7. [What was built](#what-was-built)
@@ -73,13 +73,23 @@ AI-assisted dementia care for Indian families — consent-aware memory, wanderin
 
 ---
 
-## Judge & Evaluator Quick Start (Zero-Setup)
+## Evaluation Modes: Zero-Setup vs. Full-Fledged Hardware
+
+To make judging as effortless as possible, CareGrid supports **two distinct evaluation modes**:
+
+| Mode | Target | Requirements | What is Exercised |
+| :--- | :--- | :--- | :--- |
+| **Mode A: Zero-Setup Instant Demo** | Fast Code & UX Review | Node 18+ only (No keys, no watch needed) | Pre-seeded clinical data, deterministic fallback mocks, browser `/watch` companion simulator, simulated SOS dispatch. |
+| **Mode B: Full-Fledged Live Hardware** | Complete Production Audit | Gemini API Key + Twilio + Galaxy Watch 4 + Firebase | Live Gemini multimodal generation, real emergency phone calls & SMS to caregiver phone, real Galaxy Watch 4 Kotlin app via wireless ADB, realtime Firestore multi-device sync. |
+
+---
+
+### Mode A: Zero-Setup Instant Demo (Fastest)
 
 > [!TIP]
 > **No API keys or external services are needed!**  
-> The project includes pre-seeded clinical and sensor data, a local care store, and fallback AI providers so you can experience and test every feature immediately.
+> Pre-seeded clinical and sensor data, local state storage, and fallback AI providers allow you to evaluate every core workflow immediately without hitting external rate limits or paywalls.
 
-### 1. Clone & Run Locally
 ```bash
 # 1. Clone the repository
 git clone https://github.com/ladiesmans217/Razorpay-Buildathon.git
@@ -93,7 +103,7 @@ npm run dev
 ```
 Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
-### 2. Recommended 3-Minute Evaluation Tour
+#### Recommended 3-Minute Evaluation Tour
 
 | Order | Page | What to Test / Verify |
 | :---: | :--- | :--- |
@@ -103,6 +113,45 @@ Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 | **4** | [`/caregiver`](http://localhost:3000/caregiver) | **Caregiver Dashboard**: Real-time event stream, vitals (heart rate, step counts, sleep quality), and active alerts. |
 | **5** | [`/doctor-report`](http://localhost:3000/doctor-report) | **Doctor Brief**: Clinical summary showing weekly behavioral patterns, wandering incidents, and clinician talking points. |
 | **6** | [`/rescue/patient_rajamma`](http://localhost:3000/rescue/patient_rajamma) | **Bystander Rescue Page**: The mobile-responsive recovery screen a passerby sees when scanning the patient's watch QR code. |
+
+---
+
+### Mode B: Full-Fledged Live Hardware & Production Experience
+
+For the complete, authentic production experience as built and demonstrated in our pitch:
+
+#### 1. Live Gemini AI
+Add your API key to `.env.local`:
+```bash
+cp .env.example .env.local
+# Set GEMINI_API_KEY=your_key_here
+```
+This activates live multimodal Gemini generation for dementia patient cues, memory conversation analysis, and dynamic clinician brief synthesis.
+
+#### 2. Native Samsung Galaxy Watch 4 (Wear OS)
+1. Open the `/wearos` folder in **Android Studio**.
+2. Expose your local Next.js server to an HTTPS origin (e.g. `ngrok http 3000`).
+3. Set the endpoint in `wearos/gradle.properties`:
+   ```properties
+   caregridApiBase=https://YOUR-TUNNEL-URL.ngrok-free.app
+   caregridWebUrl=https://YOUR-TUNNEL-URL.ngrok-free.app/community-app
+   ```
+4. Enable **Developer Options** and **Wireless Debugging** on the Samsung Galaxy Watch 4.
+5. Deploy the debug APK to the watch via ADB. The watch will stream real hardware GPS pings, trigger native wrist vibration patterns, and capture microphone audio directly to the CareGrid backend.
+
+#### 3. Real Emergency SOS Telephony (Twilio)
+In `.env.local`, configure:
+```env
+TWILIO_ACCOUNT_SID=your_account_sid
+TWILIO_AUTH_TOKEN=your_auth_token
+TWILIO_FROM_NUMBER=+1XXXXXXXXXX
+TWILIO_EMERGENCY_TO=+91XXXXXXXXXX
+TWILIO_ENABLE_CALLS=true
+```
+When a geofence breach occurs or the patient taps **"Notify Caregiver"** on the watch, CareGrid automatically places an **outbound phone call** with text-to-speech audio and dispatches an **SMS alert with live Google Maps coordinates** to the caregiver's real phone.
+
+#### 4. Realtime Cloud Sync (Firebase)
+Fill in `NEXT_PUBLIC_FIREBASE_*` variables in `.env.local` to enable multi-device live sync across watch, patient phone, and caregiver workstation via Firestore.
 
 ---
 
